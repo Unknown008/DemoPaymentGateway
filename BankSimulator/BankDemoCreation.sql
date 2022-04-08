@@ -99,6 +99,10 @@ CREATE TABLE [dbo].[Accounts](
 	[Balance] [decimal](18, 2) NOT NULL,
 	[Currency] [nvarchar](3) NOT NULL,
 	[CVV] [nvarchar](10) NOT NULL,
+	[CreatedBy] [nvarchar](55) NULL,
+	[UpdatedBy] [nvarchar](55) NULL,
+	[CreatedOn] [datetime] NULL,
+	[UpdatedOn] [datetime] NULL,
  CONSTRAINT [PK_Accounts] PRIMARY KEY CLUSTERED 
 (
 	[Id] ASC
@@ -116,7 +120,12 @@ CREATE TABLE [dbo].[Transactions](
 	[Status] [nvarchar](55) NULL,
 	[Amount] [decimal](18, 2) NULL,
 	[Type] [nvarchar](55) NULL,
-	[RequestId] [int] NULL,
+	[CreatedBy] [nvarchar](55) NULL,
+	[UpdatedBy] [nvarchar](55) NULL,
+	[CreatedOn] [datetime] NULL,
+	[UpdatedOn] [datetime] NULL,
+	[Currency] [nvarchar](55) NOT NULL,
+	[RequesterId] [int] NOT NULL,
  CONSTRAINT [PK_Transactions] PRIMARY KEY CLUSTERED 
 (
 	[Id] ASC
@@ -125,11 +134,16 @@ CREATE TABLE [dbo].[Transactions](
 GO
 SET IDENTITY_INSERT [dbo].[Accounts] ON 
 GO
-INSERT [dbo].[Accounts] ([Id], [AccountNumber], [CardNumber], [ExpiryMonth], [ExpiryYear], [Balance], [Currency], [CVV]) VALUES (1, N'1', N'4111111111111111', 12, 2022, CAST(1000.00 AS Decimal(18, 2)), N'MUR', N'123')
+INSERT [dbo].[Accounts] ([Id], [AccountNumber], [CardNumber], [ExpiryMonth], [ExpiryYear], [Balance], [Currency], [CVV], [CreatedBy], [UpdatedBy], [CreatedOn], [UpdatedOn]) VALUES (1, N'1', N'4111111111111111', 12, 2022, CAST(956.00 AS Decimal(18, 2)), N'MUR', N'123', N'test', N'test', getdate(), getdate())
 GO
-INSERT [dbo].[Accounts] ([Id], [AccountNumber], [CardNumber], [ExpiryMonth], [ExpiryYear], [Balance], [Currency], [CVV]) VALUES (2, N'2', N'5111111111111111', 12, 2021, CAST(1000.00 AS Decimal(18, 2)), N'MUR', N'123')
+INSERT [dbo].[Accounts] ([Id], [AccountNumber], [CardNumber], [ExpiryMonth], [ExpiryYear], [Balance], [Currency], [CVV], [CreatedBy], [UpdatedBy], [CreatedOn], [UpdatedOn]) VALUES (2, N'2', N'5111111111111111', 12, 2021, CAST(1000.00 AS Decimal(18, 2)), N'MUR', N'123', N'test', N'test', getdate(), getdate())
 GO
 SET IDENTITY_INSERT [dbo].[Accounts] OFF
+GO
+SET IDENTITY_INSERT [dbo].[Transactions] ON 
+GO
+INSERT [dbo].[Transactions] ([Id], [AccountId], [Status], [Amount], [Type], [CreatedBy], [UpdatedBy], [CreatedOn], [UpdatedOn], [Currency], [RequesterId]) VALUES (1, 1, N'Complete', CAST(2.00 AS Decimal(18, 2)), N'Debit', N'test', N'test', getdate(), getdate(), N'MUR', 1)
+SET IDENTITY_INSERT [dbo].[Transactions] OFF
 GO
 ALTER TABLE [dbo].[Transactions]  WITH CHECK ADD  CONSTRAINT [FK_Transactions_Accounts] FOREIGN KEY([AccountId])
 REFERENCES [dbo].[Accounts] ([Id])
