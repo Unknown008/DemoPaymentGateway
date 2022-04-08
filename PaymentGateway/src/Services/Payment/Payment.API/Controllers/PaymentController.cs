@@ -22,7 +22,7 @@ public class PaymentController : ControllerBase
     /// <summary>
     /// Retrieves an existing payment made previously using its ID
     /// </summary>
-    /// <param name="id">The payment ID</param>
+    /// <param name="id">The bank transaction ID</param>
     /// <returns>The payment details with the card number masked</returns>
     [HttpGet("{id}", Name = "GetPayment")]
     [ProducesResponseType(typeof(PaymentVm), (int)HttpStatusCode.OK)]

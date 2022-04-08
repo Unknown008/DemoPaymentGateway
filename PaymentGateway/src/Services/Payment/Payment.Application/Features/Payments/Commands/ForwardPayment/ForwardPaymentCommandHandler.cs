@@ -42,12 +42,15 @@ namespace PaymentNs.Application.Features.Payments.Commands.ForwardPayment
             // Update payment status following bank response
             newPayment.PaymentStatus = response.Status;
 
+            if (newPayment.PaymentStatus == "Successful")
+                newPayment.BankTransactionId = int.Parse(response.Message);
+
             await _paymentRepository.UpdateAsync(newPayment);
 
             return new BankResponse
             {
                 Status = newPayment.PaymentStatus,
-                Message = newPayment.PaymentStatus != "Successful" ? response.Message : null,
+                Message = response.Message,
             };
         }
     }

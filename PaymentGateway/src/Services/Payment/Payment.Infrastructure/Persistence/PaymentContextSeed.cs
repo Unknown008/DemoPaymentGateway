@@ -29,7 +29,8 @@ namespace PaymentNs.Infrastructure.Persistence
                     Amount = 100,
                     Currency = "MUR",
                     CVV = "123",
-                    PaymentStatus = "Complete"
+                    PaymentStatus = "Complete",
+                    BankTransactionId = 1
                 }
             };
         }

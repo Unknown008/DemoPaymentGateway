@@ -109,7 +109,7 @@ namespace BankSimulator.Services
                 return new OkObjectResult(new Response
                 {
                     Status = "Complete",
-                    Message = transaction.RequesterId.ToString()
+                    Message = transaction.Id.ToString()
                 });
             }
             catch (Exception ex)

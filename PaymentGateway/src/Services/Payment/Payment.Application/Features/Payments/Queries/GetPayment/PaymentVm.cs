@@ -12,6 +12,7 @@ namespace PaymentNs.Application.Features.Payments.Queries.GetPayment
         public string? Currency { get; set; }
         public string? CVV { get; set; }
         public string? PaymentStatus { get; set; }
+        public int? BankTransactionId { get; set; }
 
         public PaymentVm(
             int Id,
@@ -21,7 +22,8 @@ namespace PaymentNs.Application.Features.Payments.Queries.GetPayment
             int Amount,
             string? Currency,
             string? CVV,
-            string? PaymentStatus
+            string? PaymentStatus,
+            int? BankTransactionId
         )
         {
             this.Id = Id;
@@ -35,6 +37,7 @@ namespace PaymentNs.Application.Features.Payments.Queries.GetPayment
             this.Currency = Currency;
             this.CVV = CVV;
             this.PaymentStatus = PaymentStatus;
+            this.BankTransactionId = BankTransactionId;
         }
     }
 }

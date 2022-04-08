@@ -12,5 +12,6 @@ namespace PaymentNs.Domain.Entities
         public string? Currency { get; set; }
         public string? CVV { get; set; }
         public string? PaymentStatus { get; set; }
+        public int? BankTransactionId { get; set; }
     }
 }

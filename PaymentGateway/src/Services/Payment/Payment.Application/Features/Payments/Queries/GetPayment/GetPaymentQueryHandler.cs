@@ -23,13 +23,13 @@ namespace PaymentNs.Application.Features.Payments.Queries.GetPayment
 
         public async Task<PaymentVm> Handle(GetPaymentQuery request, CancellationToken cancellationToken)
         {
-            Payment payment = await _paymentRepository.GetByIdAsync(request.Id);
-            if (payment == null)
+            IEnumerable<Payment> payments = await _paymentRepository.GetAsync(p => p.BankTransactionId == request.Id);
+            if (payments == null || !payments.Any())
             {
                 _logger.LogError("Payment does not exist");
                 throw new NotFoundException(nameof(Payment), request.Id);
             }
-            return _mapper.Map<PaymentVm>(payment);
+            return _mapper.Map<PaymentVm>(payments.First());
         }
     }
 }
